@@ -37,9 +37,11 @@ const analyticsData = [
    * @returns {string} "Good" or "Low"
    */
   const getEngagementLevel = (user) => {
-    // TODO: use if/else or ternary operator
-    // Hint: Check if user.avgSessionDuration >= 200
-    return ""; // Replace with your implementation
+    if (user.avgSessionDuration >= 200) {
+      return "Good";
+    } else {
+      return "Low";
+    }
   };
   
   /**
@@ -49,9 +51,18 @@ const analyticsData = [
    * @returns {string} Name of user with longest session
    */
   const findLongestSessionUser = (data) => {
-    // TODO: use for loop
-    // Hint: Keep track of max duration and corresponding user name
-    return ""; // Replace with your implementation
+    let maxDuration = 0;
+    let longestName = "";
+
+    for (let i = 0; i < data.length; i++) {
+      const user = data[i];
+      if (user.avgSessionDuration > maxDuration) {
+        maxDuration = user.avgSessionDuration;
+        longestName = user.name;
+      }
+    }
+
+    return longestName;
   };
 
 
@@ -63,10 +74,7 @@ const analyticsData = [
    * @returns {Array} Array of formatted strings like "Alice: 3 sessions"
    */
   const formatSessions = (data) => {
-    // TODO: use map
-    // Hint: Use template literal `${user.name}: ${user.totalSessions} sessions`
-    return []; // Replace with your implementation
-    
+    return data.map((user) => `${user.name}: ${user.totalSessions} sessions`);
   };
   
   /**
@@ -76,9 +84,9 @@ const analyticsData = [
    * @returns {Array} Array of active user names
    */
   const getActiveUsers = (data) => {
-    // TODO: use filter + map
-    // Hint: First filter users with totalSessions >= 5, then map to get names
-    return []; // Replace with your implementation
+    return data
+      .filter((user) => user.totalSessions >= 5)
+      .map((user) => user.name);
   };
   
   /**
@@ -88,9 +96,7 @@ const analyticsData = [
    * @returns {number} Sum of all totalSessions
    */
   const getTotalSessions = (data) => {
-    // TODO: use reduce
-    // Hint: Accumulate user.totalSessions
-    return 0; // Replace with your implementation
+    return data.reduce((total, user) => total + user.totalSessions, 0);
   };
   
   // ========================================
